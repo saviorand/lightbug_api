@@ -63,13 +63,6 @@ This diagram illustrates a high-level architecture for a web framework in Mojo, 
 
 The architecture is designed to be highly scalable, allowing for easy integration of new components or modules, including different types of request frameworks such as REST API, GraphQL, HTTP Templates, and various RPC methods. The separation of concerns between layers promotes code reusability, maintainability, and testability. Additionally, the modular design and the use of well-established patterns make it beginner-friendly, enabling developers to quickly understand and contribute to the codebase.
 
-
-(* This is the intended flow, but it can be overridden using signals/transaction)
-
-Lets Discuss over it... Please feel free to suggest/contribute and any challenges you faced with your current backend framework and would like to point them out we would surely love to consider them and work on them  
-
-More will come...
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [language-shield]: https://img.shields.io/badge/language-mojo-orange
