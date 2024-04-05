@@ -79,3 +79,13 @@ More will come...
 [contributors-url]: https://github.com/saviorand/lightbug_http#contributing
 [discord-shield]: https://img.shields.io/discord/1192127090271719495?style=flat&logo=discord&logoColor=white
 [discord-url]: https://discord.gg/VFWETkTgrr
+
+
+## Contributors
+Want your name to show up here? See [CONTRIBUTING.md](./CONTRIBUTING.md)!
+
+<a href="https://github.com/saviorand/lightbug_api/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=saviorand/lightbug_api" />
+</a>
+
+<sub>Made with [contrib.rocks](https://contrib.rocks).</sub>
