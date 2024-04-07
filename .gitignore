@@ -1,3 +1,6 @@
 *.📦
 .DS_Store
 .mojoenv
+.rough
+.idea
+.vscode

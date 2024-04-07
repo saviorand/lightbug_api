@@ -26,7 +26,7 @@
 High Level Architecture
 
 <div align="center">
-    <img src="static/architecture.png" alt="Architecture" height="450">
+    <img src="static/architecture.png" alt="Architecture" height="100%">
     </div>
 
 This diagram illustrates a high-level architecture for a web framework in Mojo, designed with scalability, quick development, and developer-friendliness in mind. The architecture follows a layered approach, with each layer responsible for specific functionalities, making it easy to integrate with various components and request frameworks.
