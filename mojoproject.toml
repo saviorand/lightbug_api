@@ -1,0 +1,15 @@
+[project]
+authors = ["Val <saviorand@gmail.com>"]
+channels = ["conda-forge", "https://conda.modular.com/max", "https://repo.prefix.dev/mojo-community",]
+description = "A Mojo API Framework"
+name = "lightbug_api"
+platforms = ["osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+test = { cmd = "magic run mojo test -I . tests" }
+format = { cmd = "magic run mojo format -l 120 lightbug_http" }
+
+[dependencies]
+max = ">=24.5.0,<25"
+lightbug_http = ">=0.1.4"

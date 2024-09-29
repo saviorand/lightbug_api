@@ -1,0 +1,12 @@
+from lightbug_api import App
+from lightbug_http import HTTPRequest, HTTPResponse, OK, to_string
+
+fn main() raises:
+    fn printer(req: HTTPRequest) -> HTTPResponse:
+        print("Got a request on ", req.uri.path, " with method ", req.method)
+        return OK(req.body_raw)
+
+    var app = App()
+
+    app.get("/", printer)
+    app.start_server()
