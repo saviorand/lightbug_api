@@ -8,17 +8,17 @@ package:
   version: {{VERSION}}
 
 source:
-  - path: .
+  - path: ../lightbug_api
   - path: ../{{LICENSE_FILE}}
 
 build:
   script:
     - mkdir -p ${PREFIX}/lib/mojo
-    - magic run mojo package {{NAME}} -o ${PREFIX}/lib/mojo/{{NAME}}.mojopkg
+    - magic run mojo package . -o ${PREFIX}/lib/mojo/{{NAME}}.mojopkg
 
 requirements:
   run:
-    {{DEPENDENCIES}}
+{{DEPENDENCIES}}
 
 about:
   homepage: {{HOMEPAGE}}

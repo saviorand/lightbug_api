@@ -1,9 +1,14 @@
+import os
 import tomllib
 import argparse
 from typing import Any
 
+script_dir = os.path.dirname(os.path.abspath(__file__))
+repo_dir = os.path.dirname(script_dir)
+template_path = os.path.join(repo_dir, 'recipes', 'recipe.tmpl')
 
-def build_dependency_list(dependencies: dict[str, str]) -> list[str]:
+
+def build_dependency_list(dependencies: dict[str, str]) -> str:
     deps: list[str] = []
     for name, version in dependencies.items():
         start = 0
@@ -16,9 +21,9 @@ def build_dependency_list(dependencies: dict[str, str]) -> list[str]:
                 operator = version[:2]
                 start = 2
 
-        deps.append(f"- {name} {operator} {version[start:]}")
+        deps.append(f"    - {name} {operator} {version[start:]}")
 
-    return deps
+    return "\n".join(deps)
 
 
 def main():
@@ -37,7 +42,7 @@ def main():
         config = tomllib.load(f)
 
     recipe: str
-    with open('recipes/template.yaml', 'r') as f:
+    with open(template_path, 'r') as f:
         recipe = f.read()
 
     # Replace the placeholders in the recipe with the project configuration.
@@ -59,7 +64,7 @@ def main():
             dependencies = config["feature"][args.mode]["dependencies"]
 
     deps = build_dependency_list(dependencies)
-    recipe = recipe.replace("{{DEPENDENCIES}}", "\n".join(deps))
+    recipe = recipe.replace("{{DEPENDENCIES}}", deps)
 
     # Write the final recipe.
     with open('recipes/recipe.yaml', 'w+') as f:
