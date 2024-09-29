@@ -7,6 +7,10 @@ platforms = ["osx-arm64", "linux-64"]
 version = "0.1.0"
 
 [tasks]
+build = { cmd = "bash scripts/build.sh nightly", env = {MODULAR_MOJO_IMPORT_PATH = "$CONDA_PREFIX/lib/mojo"} }
+publish = { cmd = "bash scripts/publish.sh mojo-community-nightly", env = { PREFIX_API_KEY = "$PREFIX_API_KEY" } }
+bp = { depends_on=["build", "publish"] }
+template = { cmd = "magic run python scripts/templater.py" }
 test = { cmd = "magic run mojo test -I . tests" }
 format = { cmd = "magic run mojo format -l 120 lightbug_api" }
 
