@@ -16,52 +16,93 @@
    [![Contributors Welcome][contributors-shield]][contributors-url]
    [![Join our Discord][discord-shield]][discord-url]
    
-   
 
   </p>
 </div>
 
 ## Overview
 
-High Level Architecture
+Lightbug API is a framework that allows to quickly write expressive APIs.
 
-<div align="center">
-    <img src="static/architecture.png" alt="Architecture" height="100%">
-    </div>
+This is not production ready yet. We're aiming to keep up with new developments in Mojo, but it might take some time to get to a point when this is safe to use in real-world applications.
 
-This diagram illustrates a high-level architecture for a web framework in Mojo, designed with scalability, quick development, and developer-friendliness in mind. The architecture follows a layered approach, with each layer responsible for specific functionalities, making it easy to integrate with various components and request frameworks.
+Lightbug API currently has the following features:
+ - [x] Assign handlers on given routes with different methods (GET, POST, ...)
 
-## 1. Gateway Layer
-- This layer serves as the entry point for the web application.
-- WSGI (Web Server Gateway Interface) is the standard interface used for communication between web servers and web applications.
+ ### Check Out These Mojo Libraries:
 
-## 2. Middleware Layer
-- This layer consists of multiple middlewares (Middleware 1, Middleware 2, ..., Middleware N) basically a stack of function calls.
+- Logging - [@toasty/stump](https://github.com/thatstoasty/stump)
+- CLI and Terminal - [@toasty/prism](https://github.com/thatstoasty/prism), [@toasty/mog](https://github.com/thatstoasty/mog)
+- Date/Time - [@mojoto/morrow](https://github.com/mojoto/morrow.mojo) and [@toasty/small-time](https://github.com/thatstoasty/small-time)
 
-- Each Request will go through the middleware stack from top to bottom before being passed to Routing Layer and all responses will go through the same middleware stack from bottom to top.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-- Middleware components are responsible for handling cross-cutting concerns, such as authentication, logging, caching, and other common functionalities.
-- They can be easily plugged in or removed based on the application's requirements.
-- These Middlewares are order sensitive 
+<!-- GETTING STARTED -->
+## Getting Started
 
-## 3. Routing Layer
-- This layer contains a Router component responsible for mapping incoming requests to the appropriate handlers or views.
-- The Router analyzes the request and delegates it to the corresponding view or controller.
+Learn how to get up and running with Mojo on the [Modular website](https://www.modular.com/max/mojo).
+Once you have a Mojo project set up locally,
 
-## 4. View Layer
-- This layer contains views or templates that handle the presentation logic of the web application.
-- The View component receives data from the Router and renders the appropriate response.
-- In this architecture, there are two example views: API Realm 1 and API Realm 2, representing different types of request frameworks such as REST API, GraphQL, HTTP Templates, and various other RPC methods.
+1. Add the `mojo-community` channel to your `mojoproject.toml`, e.g:
+   ```toml
+   [project]
+   channels = ["conda-forge", "https://conda.modular.com/max", "https://repo.prefix.dev/mojo-community"]
+   ```
+2. Add `lightbug_api` and `lightbug_http` in dependencies:
+   ```toml
+   [dependencies]
+   lightbug_api = ">=0.1.0"
+   lightbug_http = ">=0.1.4"
+   ```
+3. Run `magic install` at the root of your project, where `mojoproject.toml` is located
+4. Lightbug API should now be installed. You can import all the default imports at once, e.g:
+    ```mojo
+    from lightbug_api import *
+    ```
+    or import individual structs and functions, e.g. 
+    ```mojo
+    from lightbug_api.routing import Router
+    ```
+5. Create one or more handlers for your routes that satiisfy the `HTTPService` trait:
+   ```mojo
+   trait HTTPService:
+    fn func(self, req: HTTPRequest) raises -> HTTPResponse:
+        ...
+   ```
+   For example, to make a `Printer` service that prints some details about the request to console:
+   ```mojo
+    from lightbug_http import HTTPRequest, HTTPResponse, OK
 
-## 5. Serialization Layer
-- This layer handles the serialization and deserialization of data between the application and external systems or databases.
-- It consists of realm specific serializer (responsible for validating data, carrying out pre-model layer business logic*) corresponding to the different request frameworks in the View Layer.
+    @always_inline
+    fn printer(req: HTTPRequest) -> HTTPResponse:
+            print("Got a request on ", req.uri.path, " with method ", req.method)
+            return OK(req.body_raw)
+   ```
+6. Assign your handlers to routes and launch your app with `start_server()`:
+   ```mojo
+    from lightbug_api import App
+    from lightbug_http import HTTPRequest, HTTPResponse, OK
 
-## 6. Model Layer 
-- This layer interacts with the Database (DB) component for persisting and retrieving data, using Object Relation Mapping (ORM) for NoSQL and SQL databases which will have their own implementation to carry out the actual database operations.
+    @always_inline
+    fn printer(req: HTTPRequest) -> HTTPResponse:
+            print("Got a request on ", req.uri.path, " with method ", req.method)
+            return OK(req.body_raw)
 
+    @always_inline
+    fn hello(req: HTTPRequest) -> HTTPResponse:
+            return OK("Hello 🔥!")
 
-The architecture is designed to be highly scalable, allowing for easy integration of new components or modules, including different types of request frameworks such as REST API, GraphQL, HTTP Templates, and various RPC methods. The separation of concerns between layers promotes code reusability, maintainability, and testability. Additionally, the modular design and the use of well-established patterns make it beginner-friendly, enabling developers to quickly understand and contribute to the codebase.
+    fn main() raises:
+        var app = App()
+
+        app.get("/", hello)
+        app.post("/", printer)
+
+        app.start_server()
+   ```
+7. Excellent 😈. Your app is now listening on the selected port. 
+   You've got yourself a pure-Mojo API! 🔥
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

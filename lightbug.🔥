@@ -1,12 +1,19 @@
 from lightbug_api import App
-from lightbug_http import HTTPRequest, HTTPResponse, OK, to_string
+from lightbug_http import HTTPRequest, HTTPResponse, OK
 
-fn main() raises:
-    fn printer(req: HTTPRequest) -> HTTPResponse:
+@always_inline
+fn printer(req: HTTPRequest) -> HTTPResponse:
         print("Got a request on ", req.uri.path, " with method ", req.method)
         return OK(req.body_raw)
 
+@always_inline
+fn hello(req: HTTPRequest) -> HTTPResponse:
+        return OK("Hello 🔥!")
+
+fn main() raises:
     var app = App()
 
-    app.get("/", printer)
+    app.get("/", hello)
+    app.post("/", printer)
+
     app.start_server()
