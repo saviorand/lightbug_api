@@ -40,5 +40,5 @@ jobs:
           chmod +x rattler-build
 
           # Build and push
-          magic run build --target-platform=$TARGET_PLATFORM
+          magic run build env=default --target-platform=$TARGET_PLATFORM
           magic run publish
