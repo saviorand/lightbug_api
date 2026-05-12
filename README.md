@@ -1,3 +1,12 @@
+> [!WARNING]
+> **This repository is archived as of 2026-05-12 and is no longer maintained.**
+>
+> Check out these Mojo libraries instead:
+> - HTTP Client - [@thatstoasty/floki](https://github.com/thatstoasty/floki)
+> - JSON - [@bgreni/EmberJson](https://github.com/bgreni/EmberJson)
+> - CLI and Terminal - [@thatstoasty/prism](https://github.com/thatstoasty/prism), [@thatstoasty/mog](https://github.com/thatstoasty/mog)
+> - Date/Time - [@mojoto/morrow](https://github.com/mojoto/morrow.mojo) and [@thatstoasty/small_time](https://github.com/thatstoasty/small_time)
+
 <a name="readme-top"></a>
 
 <div align="center">
